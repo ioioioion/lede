@@ -10,8 +10,10 @@
 name: OpenWrt-CI
 
 on:
-  schedule:
-    - cron: 0 20 * * *
+  push:
+    branches: [ passwall ]
+  pull_request:
+    branches: [ passwall ]
 
 jobs:
 
@@ -23,7 +25,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
         with:
-          ref: master
+          ref: passwall
+          fetch-depth: 1000000
 
       - name: Space cleanup
         env:
@@ -54,7 +57,7 @@ jobs:
           ./scripts/feeds install -a
 
       - name: Generate configuration file
-        run: make defconfig
+        run: cp passwall.config .config
 
       - name: Make download
         run: |
