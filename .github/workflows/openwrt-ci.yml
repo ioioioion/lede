@@ -11,9 +11,9 @@ name: OpenWrt-CI
 
 on:
   push:
-    branches: [ passwall ]
+    branches: [ clash ]
   pull_request:
-    branches: [ passwall ]
+    branches: [ clash ]
 
 jobs:
 
@@ -26,7 +26,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: passwall
+          ref: clash
           fetch-depth: 1000000
 
       - name: Space cleanup
@@ -50,7 +50,7 @@ jobs:
           ./scripts/feeds install -a
 
       - name: Generate configuration file
-        run: cp passwall.config .config
+        run: cp default.config .config
 
       - name: Make download
         run: |
